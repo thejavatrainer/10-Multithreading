@@ -10,6 +10,10 @@ final class Utils {
         return Thread.currentThread().getName() + ": ";
     }
 
+    static void me(String name) {
+        Thread.currentThread().setName(name);
+    }
+
     static void sleep(long millis) {
         try {
             Thread.sleep(millis);

@@ -1,11 +1,13 @@
 package multithreading;
 
+import static multithreading.Utils.me;
+
 public class Synchronization {
     static class ValueHolder {
         private int value = 0;
 
         void add(int value) {
-            System.out.println("----Add value: " + value);
+            System.out.println("----" + me() + "Add value: " + value);
             this.value = this.value + value;
         }
 
@@ -17,8 +19,14 @@ public class Synchronization {
     private void execute() throws InterruptedException {
         ValueHolder value = new ValueHolder();
 
-        Thread thread1 = new Thread(() -> value.add(value.getValue() + 3));
-        Thread thread2 = new Thread(() -> value.add(value.getValue() * 2));
+        Thread thread1 = new Thread(() -> {
+            int val = value.getValue() + 3;
+            value.add(val);
+        }, "Thread1");
+        Thread thread2 = new Thread(() -> {
+            int val = value.getValue() * 2;
+            value.add(val);
+        }, "Thread2");
 
         thread1.start();
         thread2.start();
