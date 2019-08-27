@@ -1,5 +1,6 @@
 package multithreading;
 
+import java.time.Instant;
 import java.util.Random;
 
 final class Utils {
@@ -7,7 +8,7 @@ final class Utils {
     }
 
     static String me() {
-        return Thread.currentThread().getName() + ": ";
+        return Instant.now() + " " + Thread.currentThread().getName() + ": ";
     }
 
     static void me(String name) {
@@ -16,6 +17,7 @@ final class Utils {
 
     static void sleep(long millis) {
         try {
+            System.out.println(me() + "sleeping for " + millis);
             Thread.sleep(millis);
         } catch (InterruptedException e) {
             // don't care
